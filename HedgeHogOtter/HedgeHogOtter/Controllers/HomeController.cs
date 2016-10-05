@@ -26,5 +26,12 @@ namespace HedgeHogOtter.Controllers
 
             return View();
         }
+
+        public ActionResult Login()
+        {
+            ViewBag.Message = "Login page";
+
+            return View();
+        }
     }
 }
