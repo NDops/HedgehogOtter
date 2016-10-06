@@ -48,7 +48,6 @@ C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\System.
 C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\System.Web.WebPages.Razor.xml
 C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\Antlr3.Runtime.pdb
 C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\Newtonsoft.Json.xml
-C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\obj\Debug\HedgeHogOtter.csprojResolveAssemblyReference.cache
 C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\obj\Debug\HedgeHogOtter.dll
 C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\obj\Debug\HedgeHogOtter.pdb
 C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\ApplicationInsights.config
@@ -103,3 +102,8 @@ C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin
 C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\Newtonsoft.Json.xml
 C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\obj\Debug\HedgeHogOtter.dll
 C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\obj\Debug\HedgeHogOtter.pdb
+C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\obj\Debug\HedgeHogOtter.csprojResolveAssemblyReference.cache
+C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\EntityFramework.dll
+C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\EntityFramework.SqlServer.dll
+C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\EntityFramework.xml
+C:\Users\Nick\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\EntityFramework.SqlServer.xml

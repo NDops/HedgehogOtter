@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HedgeHogOtter.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -10,6 +11,9 @@ namespace HedgeHogOtter.Controllers
 {
     public class HomeController : Controller
     {
+
+        private HedgeHogOtterEntities db = new HedgeHogOtterEntities();
+
         public ActionResult Index()
         {
             return View();
