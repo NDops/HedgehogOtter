@@ -36,24 +36,23 @@ namespace HedgeHogOtter.Controllers
         public ActionResult EditBook()
         {
             int id = int.Parse(Request.QueryString["id"]);
-            var Book = (from m in db.Books
-                         where m.Id == id
-                         select m).ToList();
+            var Book = db.Books.Find(id);
+
             String table = "";
 
             
-            table += "<table><tr><td>Title:</td> <td><input name = 'Title' type='text' value='"+Book.ElementAt(0).Title+"'/></td></tr><br>";
-            table += "<tr><td>Author:</td> <td><input  name = 'Author' type='text' value='" + Book.ElementAt(0).Author + "'/></td></tr><br>";
-            table += "<tr><td>Book Condition:</td><td> <input  name = 'BookCnd' type='text' value='" + Book.ElementAt(0).BookCondition + "'/></td></tr><br>";
-            table += "<tr><td>Description:</td> <td><input  name = 'Description' type='text' value='" + Book.ElementAt(0).Description + "'/></td></tr><br>";
-            table += "<tr><td>Subject:</td><td> <input  name = 'Subject' type='text' value='" + Book.ElementAt(0).Subject + "'/></td></tr><br>";
-            table += "<tr><td>Quantity:</td> <td><input name = 'Qty' type='text' value='" + Book.ElementAt(0).Quantity + "'/></td></tr><br>";
-            table += "<tr><td>Price:</td><td> <input  name = 'Price' type='text' value='" + Book.ElementAt(0).Price + "'/></td></tr><br>";
-            table += "<tr><td>ISBN #:</td><td> <input name = 'ISBN' type='text' value='" + Book.ElementAt(0).ISBN + "'/></td></tr><br>";
-            table += "<tr><td>Publisher:</td><td> <input  name = 'Publisher' type='text' value='" + Book.ElementAt(0).Publisher + "'/></td></tr><br>";
-            table += "<tr><td>Publisher Place:</td> <td><input  name = 'PublisherPlace'  type='text' value='" + Book.ElementAt(0).PublisherPlace + "'/></td></tr><br>";
-            table += "<tr><td>Publish Year:</td><td> <input  name = 'PublisherYear' type='text' value='" + Book.ElementAt(0).PublishYear + "'/></td></tr></table><br>";
-            table += "<input  name = 'Id' type='hidden' value='" + Book.ElementAt(0).Id + "'/></table><br>";
+            table += "<table><tr><td>Title:</td> <td><input name = 'Title' type='text' value='"+Book.Title+"'/></td></tr><br>";
+            table += "<tr><td>Author:</td> <td><input  name = 'Author' type='text' value='" + Book.Author + "'/></td></tr><br>";
+            table += "<tr><td>Book Condition:</td><td> <input  name = 'BookCnd' type='text' value='" + Book.BookCondition + "'/></td></tr><br>";
+            table += "<tr><td>Description:</td> <td><input  name = 'Description' type='text' value='" + Book.Description + "'/></td></tr><br>";
+            table += "<tr><td>Subject:</td><td> <input  name = 'Subject' type='text' value='" + Book.Subject + "'/></td></tr><br>";
+            table += "<tr><td>Quantity:</td> <td><input name = 'Qty' type='text' value='" + Book.Quantity + "'/></td></tr><br>";
+            table += "<tr><td>Price:</td><td> <input  name = 'Price' type='text' value='" + Book.Price + "'/></td></tr><br>";
+            table += "<tr><td>ISBN #:</td><td> <input name = 'ISBN' type='text' value='" + Book.ISBN + "'/></td></tr><br>";
+            table += "<tr><td>Publisher:</td><td> <input  name = 'Publisher' type='text' value='" + Book.Publisher + "'/></td></tr><br>";
+            table += "<tr><td>Publisher Place:</td> <td><input  name = 'PublisherPlace'  type='text' value='" + Book.PublisherPlace + "'/></td></tr><br>";
+            table += "<tr><td>Publish Year:</td><td> <input  name = 'PublisherYear' type='text' value='" + Book.PublishYear + "'/></td></tr></table><br>";
+            table += "<input  name = 'Id' type='hidden' value='" + Book.Id + "'/></table><br>";
 
             ViewBag.table = table;
             return View();
@@ -155,7 +154,7 @@ namespace HedgeHogOtter.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("CRUD");
             }
         }
 
