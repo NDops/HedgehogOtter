@@ -16,6 +16,7 @@ namespace HedgeHogOtter.Controllers
 
         public ActionResult Index()
         {
+
             var bookList = db.Books.ToList();
             var bookDisplayList = new List<Book>();
             while(bookDisplayList.Count < 3)

@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "CRUD";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create, Update and Delete Books</h2>
+
+<button onclick= "window.location='CreateBook'">Create New Book</button>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+    #verifier{
+        position:absolute;
+        width:25%;
+        height:150px;
+        margin: 10%; 
+        margin-left:15%;
+        background-color:lightblue;
+        z-index:1001;
+        box-shadow: 10px 10px 5px #888888;
+        text-align:center;
+        visibility:hidden;
+    }
+</style>
+
+
+    <div id="verifier">
+
+        <b>Deleting this is permanent,</b><br> are you sure you want to do this?<br />
+        <form action="DeleteBook" method="post"> <button id="deleter" name="id" value="" type="submit" style="margin-top:10%; margin-right:5px;">Yes</button></form><button onclick="verify(1)">Cancel</button>
+
+    </div>
+
+    <div id="BookTable">
+
+        <table style="border 1px solid black;">
+            <tr>
+                <th>Book Title:</th>
+                <th>Author:</th>
+                <th>Qty:</th>
+            </tr>
+            @Html.Raw((String)ViewBag.table)
+        </table>
+
+    </div>
+
+<script>
+    function verify(x,id) {
+        if(x == 0){
+            document.getElementById("verifier").style.visibility = "visible";
+            document.getElementById("deleter").value = id;
+        } else {
+            document.getElementById("verifier").style.visibility = "hidden";
+        }
+       
+    }
+
+</script>

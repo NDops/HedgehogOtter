@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "EditBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Book</h2>
+<form method="post">
+    @Html.Raw((String)ViewBag.table)
+    <button type="submit">Save Changes</button>
+</form>
+  <button>Cancel</button>
+
