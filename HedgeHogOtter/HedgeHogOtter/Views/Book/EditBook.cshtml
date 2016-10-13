@@ -6,8 +6,8 @@
 
 <h2>Edit Book</h2>
 <form method="post">
-    @Html.Raw((String)ViewBag.table)
-    <button type="submit">Save Changes</button>
+        @Html.Raw((String)ViewBag.table)
+        <button type="submit">Save Changes</button>
 </form>
-  <button>Cancel</button>
+  @Html.ActionLink("Back to List", "Index")
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace HedgeHogOtter.Controllers
 {
@@ -11,12 +12,12 @@ namespace HedgeHogOtter.Controllers
     {
 
         private HedgeHogOtterEntities db = new HedgeHogOtterEntities();
+        static List<Book> globalBookList = new List<Book>();
 
         public ActionResult Index()
         {
-            var bookList = db.Books.ToList();
-            var bookDisplay = new List<Book>();
-            return View();
+            globalBookList = db.Books.ToList();
+            return View(globalBookList);
         }
 
         // GET: Book
@@ -63,24 +64,53 @@ namespace HedgeHogOtter.Controllers
             ViewBag.table = table;
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            return View(db.Books.Find(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include="Id,Title,Author,BookCondition,Description,Subject,Quantity,Price,ISBN,Publisher,PublisherPlace,PublishYear")] Book b)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", b);
+            }
+            db.Entry(b).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         // GET: Book/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var b = db.Books.Find(id);
+            return View(b);
         }
-        public ActionResult CreateBook()
-        {
-            return View();
-        }
-        public ActionResult Delete()
-        {
 
-            return View();
-        }
         // GET: Book/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Title,Author,BookCondition,Description,Subject,Quantity,Price,ISBN,Publisher,PublisherPlace,PublishYear")] Book b)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Create", b);
+            }
+            db.Books.Add(b);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // POST: Book/Create
@@ -113,12 +143,6 @@ namespace HedgeHogOtter.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: Book/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
         }
 
         // POST: Book/Edit/5
@@ -164,7 +188,13 @@ namespace HedgeHogOtter.Controllers
             }
         }
 
-       
+        public ActionResult Delete(int id)
+        {
+            db.Books.Remove(db.Books.Find(id));
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // POST: Book/Delete/5
         [HttpPost]
         public ActionResult DeleteBook(int id, FormCollection collection)
