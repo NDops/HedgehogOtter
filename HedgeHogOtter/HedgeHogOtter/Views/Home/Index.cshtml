@@ -15,19 +15,16 @@
         <p>
             @ViewBag.bookDisplayList[0].Description
         </p>
-        <!--Need link to book-->
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">See This Book &raquo;</a></p>
+        <p>@Html.ActionLink("See This Book", "Details", "Book", new { id = ViewBag.bookDisplayList[0].Id }, new { @class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>@ViewBag.bookDisplayList[1].Title</h2>
         <p>@ViewBag.bookDisplayList[1].Description</p>
-        <!--Need link to book-->
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">See This Book &raquo;</a></p>
+        <p>@Html.ActionLink("See This Book", "Details", "Book", new { id = ViewBag.bookDisplayList[1].Id }, new { @class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>@ViewBag.bookDisplayList[2].Title</h2>
         <p>@ViewBag.bookDisplayList[2].Description</p>
-        <!--Need link to book-->
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">See This Book &raquo;</a></p>
+        <p>@Html.ActionLink("See This Book", "Details", "Book", new { id = ViewBag.bookDisplayList[2].Id }, new { @class = "btn btn-default" })</p>
     </div>
 </div>
