@@ -113,6 +113,12 @@ namespace HedgeHogOtter.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult CreateBook()
+        {
+            return View();
+        }
+
         // POST: Book/Create
         [HttpPost]
         public ActionResult CreateBook(FormCollection collection)

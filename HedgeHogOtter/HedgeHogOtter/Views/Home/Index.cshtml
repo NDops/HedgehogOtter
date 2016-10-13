@@ -6,7 +6,7 @@
     <h1>Hedgehog & Otter Books</h1>
     <p class="lead">Welcome to Hedgehog & Otter Books! Explore all of the books we have in stock by clicking below!</p>
     <!--Need link to Book index page.-->
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Find Books Now &raquo;</a></p>
+    <p>@Html.ActionLink("Find Books Now", "Index", "Book", new { @class = "btn btn-primary btn-lg"})</p>
 </div>
 
 <div class="row">
