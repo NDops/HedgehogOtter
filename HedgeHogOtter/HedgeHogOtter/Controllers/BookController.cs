@@ -12,6 +12,12 @@ namespace HedgeHogOtter.Controllers
 
         private HedgeHogOtterEntities db = new HedgeHogOtterEntities();
 
+        public ActionResult Index()
+        {
+            var bookList = db.Books.ToList();
+            var bookDisplay = new List<Book>();
+            return View();
+        }
 
         // GET: Book
         public ActionResult CRUD()
