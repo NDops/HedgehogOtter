@@ -21,7 +21,7 @@ namespace HedgeHogOtter.Controllers
         }
 
         // GET: Book
-        public ActionResult CRUD()
+        public ActionResult Admin()
         {
             
             var bookList = db.Books.ToList();
@@ -142,7 +142,8 @@ namespace HedgeHogOtter.Controllers
 
                     db.Books.Add(b);
                     db.SaveChanges();
-                    return RedirectToAction("CRUD");
+
+                    return RedirectToAction("Admin");
 
             }
             catch
@@ -186,11 +187,11 @@ namespace HedgeHogOtter.Controllers
                 db.Books.Find(tempID).PublishYear = b.PublishYear;
 
                 db.SaveChanges();
-                return RedirectToAction("CRUD");
+                return RedirectToAction("Admin");
             }
             catch
             {
-                return RedirectToAction("CRUD");
+                return RedirectToAction("Admin");
             }
         }
 
@@ -211,7 +212,7 @@ namespace HedgeHogOtter.Controllers
                 int deleteID = int.Parse(Request.Form["id"]);
                 db.Books.Remove(db.Books.Find(deleteID));
                 db.SaveChanges();
-                return RedirectToAction("CRUD");
+                return RedirectToAction("Admin");
             }
             catch
             {
