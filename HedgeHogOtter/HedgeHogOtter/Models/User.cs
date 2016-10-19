@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HedgeHogOtter.Models
 {
-    public class Admin
+    public class User
     {
         public string Username { get; set; }
         public string Password { get; set; }
