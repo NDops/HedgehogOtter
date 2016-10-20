@@ -225,4 +225,3 @@ C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin
 C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\EntityFramework.SqlServer.dll
 C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\EntityFramework.xml
 C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\bin\EntityFramework.SqlServer.xml
-C:\Users\erikkronholm\Source\Repos\HedgehogOtter\HedgeHogOtter\HedgeHogOtter\obj\Debug\HedgeHogOtter.csprojResolveAssemblyReference.cache
