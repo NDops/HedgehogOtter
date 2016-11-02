@@ -23,18 +23,55 @@ namespace HedgeHogOtter.Controllers
         // GET: Book
         public ActionResult Admin()
         {
-            
+          
             var bookList = db.Books.ToList();
             var bookDisplayList = new List<Book>();
+            string checkedBox;
             String table = "";
-            for (int i =0; i < bookList.Count; i++)
+
+
+            for (int i = 0; i < bookList.Count; i++)
             {
-                table += "<tr><td><a href = 'Edit/"+bookList.ElementAt(i).Id +"'>" + bookList.ElementAt(i).Title + "</a></td><td>"+ bookList.ElementAt(i).Author +"</td> <td> "+bookList.ElementAt(i).Quantity +" </td ><td><button onclick = 'verify(0,"+bookList.ElementAt(i).Id +")' > Delete </button></td> </tr> ";
+                if (bookList.ElementAt(i).FeatureFlag == 1)  //featured flag 
+                {
+                     checkedBox = " type ='checkbox' checked />";
+                }
+                else
+                {
+                     checkedBox = " type ='checkbox' />";
+                }
+                table += "<tr> <td><input name = 'flaggedbox' onclick='ungraySave()' datac = 'equals" + bookList.ElementAt(i).FeatureFlag + "' id = '" + bookList.ElementAt(i).Title.Replace("'", @" ") + @"'"+checkedBox+" <td><a href = 'Edit/" + bookList.ElementAt(i).Id + "'>" + bookList.ElementAt(i).Title + "</a></td><td>" + bookList.ElementAt(i).Author + "</td> <td> " + bookList.ElementAt(i).Quantity + "</td> </td ><td><button type = 'button' onclick = 'verify(0," + bookList.ElementAt(i).Id + ")' > Delete </button></td> </tr> ";
             }
             ViewBag.table = table;
+            
+
             return View();
         }
-       
+        [HttpPost]
+        [ActionName("Admin")]
+        public ActionResult AdminPost(string key)
+        {
+            Book b1 = new Book();
+            b1.Author = "adf";
+            b1.Price = 123;
+            b1.Id = 12;
+            b1.FeatureFlag = 1;
+            b1.ISBN = "adf";
+            b1.Price =  123;
+            b1.Publisher = key;
+            b1.PublisherPlace = "adf";
+            b1.PublishYear = 12;
+            b1.Quantity = 12;
+            b1.Subject = "adf";
+            b1.Title = "key";
+
+
+            db.Books.Add(b1);
+            db.SaveChanges();
+
+
+            return RedirectToAction("Admin");
+        }
 
         [HttpGet]
         public ActionResult Edit(int? id)

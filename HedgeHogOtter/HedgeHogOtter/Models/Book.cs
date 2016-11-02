@@ -26,5 +26,9 @@ namespace HedgeHogOtter.Models
         public Nullable<int> PublishYear { get; set; }
         public Nullable<int> Quantity { get; set; }
         public int Id { get; set; }
+
+        public Nullable <int> FeatureFlag { get; set; }
+
+
     }
 }
