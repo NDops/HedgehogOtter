@@ -13,10 +13,10 @@ namespace HedgeHogOtter.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HedgeHogOtterEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public HedgeHogOtterEntities()
-            : base("name=HedgeHogOtterEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -25,8 +25,6 @@ namespace HedgeHogOtter.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

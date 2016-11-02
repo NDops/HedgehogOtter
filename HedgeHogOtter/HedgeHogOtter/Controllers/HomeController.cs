@@ -47,5 +47,11 @@ namespace HedgeHogOtter.Controllers
 
             
         }
+
+        public ActionResult Login()
+        {
+            //var userList = db.User.ToList();
+            return View();
+        }
     }
 }
