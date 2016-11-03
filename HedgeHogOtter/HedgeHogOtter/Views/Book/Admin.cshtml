@@ -39,14 +39,14 @@
 
     </div>
 
-    <div id="BookTable">
+    <div id="BookTable1">
         <form method="POST">
         <table style="border: 1px solid black;">
-            <tr>
-                <th><img style="height:20px;" src="~/Content/images/RedFlag.png" /></th>
-                <th>Book Title:</th>
-                <th>Author:</th>
-                <th>Qty:</th>
+            <tr style="border: 1px solid black;">
+                <th style="border: 1px solid black;"><img style="height:20px;" src="~/Content/images/RedFlag.png" /></th>
+                <th style="border: 1px solid black;">Book Title:</th>
+                <th style="border: 1px solid black;">Author:</th>
+                <th style="border: 1px solid black;">Qty:</th>
             </tr>
             @Html.Raw((String)ViewBag.table)
         </table>
