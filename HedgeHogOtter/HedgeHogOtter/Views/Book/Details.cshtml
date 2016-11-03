@@ -5,103 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Title)</h2>
+<hr />
 
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+<div class="row">
+    <div class="col-sm-6">
+        <b>Description:</b> @Html.DisplayFor(model => model.Description)<br />
+        <b>Author:</b> @Html.DisplayFor(model => model.Author)<br />
+        <b>Price:</b> @Html.DisplayFor(model => model.Price)<br />
+        <b>ISBN:</b> @Html.DisplayFor(model => model.ISBN)<br />
+        <b>Publisher:</b> @Html.DisplayFor(model => model.Publisher)<br />
+        <b>Condition:</b> @Html.DisplayFor(model => model.BookCondition)<br />
+        <b>Publisher Location:</b> @Html.DisplayFor(model => model.PublisherPlace)<br />
+        <b>Published Year:</b> @Html.DisplayFor(model => model.PublishYear)<br />
+        <b>Quantity Available:</b> @Html.DisplayFor(model => model.Quantity)<br />
+        <b>Subject:</b> @Html.DisplayFor(model => model.Subject)<br /><br />
+    </div>
+    <div class="col-sm-6">
+        <img class="card-img-top" src="http://www.pressedfortimelincoln.co.uk/wp-content/uploads/2013/05/placeholder1-1024x768.png" width=318 height=180 alt="Card image cap">
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ISBN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ISBN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Publisher)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Subject)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Subject)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookCondition)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookCondition)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PublisherPlace)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublisherPlace)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PublishYear)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublishYear)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-
-    </dl>
+    </div>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-primary" })
 </p>

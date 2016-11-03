@@ -1,95 +1,38 @@
 ﻿@model IEnumerable<HedgeHogOtter.Models.Book>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Book Listings";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Book Listings</h2>
+<br />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ISBN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Publisher)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subject)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookCondition)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PublisherPlace)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PublishYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th></th>
-    </tr>
+@{ int i = 1; }
+<div class="row">
+    @foreach (var item in Model)
+    {
+        if ((i % 3) == 0)
+        {
+            @:<div class="row">
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ISBN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Publisher)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subject)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookCondition)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PublisherPlace)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PublishYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) <br/>
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) <br/>
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id },
-                 new { onclick = "return confirm('Are you sure?');" })
-        </td>
-    </tr>
-}
+        <div class="col-sm-4">
+            <div class="card">
+                <img class="card-img-top" src="http://www.pressedfortimelincoln.co.uk/wp-content/uploads/2013/05/placeholder1-1024x768.png" width=318 height=180 alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h4>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    <a href="#" class="btn btn-primary">Buy</a>
+                </div>
+            </div>
+        </div>
 
-</table>
+        if ((i % 3) == 0)
+        {
+            @:</div><br /><br />
+        }
+        i++;
+    }
+</div>
