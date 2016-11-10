@@ -12,11 +12,11 @@ namespace HedgeHogOtter.Controllers
     public class HomeController : Controller
     {
 
-        private HedgeHogOtterEntities db = new HedgeHogOtterEntities();
+        private HedgeHogOtterContext db = new HedgeHogOtterContext();
 
         public ActionResult Index()
         {
-
+            
             var bookList = db.Books.ToList();
             var bookDisplayList = new List<Book>();
             while(bookDisplayList.Count < 3)
@@ -50,7 +50,7 @@ namespace HedgeHogOtter.Controllers
 
         public ActionResult Login()
         {
-            //var userList = db.User.ToList();
+            var userList = db.Users.ToList();
             return View();
         }
     }

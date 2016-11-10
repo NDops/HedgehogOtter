@@ -87,7 +87,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -164,45 +163,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Book.cs">
-      <DependentUpon>Books.tt</DependentUpon>
+    <Compile Include="Migrations\201611102213181_First migration.cs" />
+    <Compile Include="Migrations\201611102213181_First migration.Designer.cs">
+      <DependentUpon>201611102213181_First migration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Books.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Books.Context.tt</DependentUpon>
+    <Compile Include="Migrations\201611102301086_Removed Password on User.cs" />
+    <Compile Include="Migrations\201611102301086_Removed Password on User.Designer.cs">
+      <DependentUpon>201611102301086_Removed Password on User.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Books.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Books.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Books.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Books.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\database_firewall_rules.cs">
-      <DependentUpon>Books.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>User.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>User.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>User.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>User.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\HedgeHogOtterContext.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -212,46 +184,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Books.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Books.edmx</DependentUpon>
-      <LastGenOutput>Books.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Books.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Books.edmx</DependentUpon>
-      <LastGenOutput>Books.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\User.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>User.edmx</DependentUpon>
-      <LastGenOutput>User.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\User.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>User.edmx</DependentUpon>
-      <LastGenOutput>User1.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\Books.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Books.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Books.edmx.diagram">
-      <DependentUpon>Books.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\User.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>User.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\User.edmx.diagram">
-      <DependentUpon>User.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -265,7 +203,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -301,6 +241,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611102213181_First migration.resx">
+      <DependentUpon>201611102213181_First migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611102301086_Removed Password on User.resx">
+      <DependentUpon>201611102301086_Removed Password on User.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -11,7 +11,7 @@ namespace HedgeHogOtter.Controllers
     public class BookController : Controller
     {
 
-        private HedgeHogOtterEntities db = new HedgeHogOtterEntities();
+        private HedgeHogOtterContext db = new HedgeHogOtterContext();
         static List<Book> globalBookList = new List<Book>();
 
         public ActionResult Index()
@@ -44,7 +44,7 @@ namespace HedgeHogOtter.Controllers
             }
             ViewBag.table = table;
             
-
+    
             return View();
         }
         [HttpPost]
@@ -65,7 +65,6 @@ namespace HedgeHogOtter.Controllers
                 return RedirectToAction("index");
             }else{
                 return View(db.Books.Find(id));
-
             }
             
         }
