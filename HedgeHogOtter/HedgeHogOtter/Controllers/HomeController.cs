@@ -17,17 +17,27 @@ namespace HedgeHogOtter.Controllers
         public ActionResult Index()
         {
             
-            var bookList = db.Books.ToList();
+            var bookList = db.Books.Select(b => b).Where(b => b.FeatureFlag == 1).ToList();
             var bookDisplayList = new List<Book>();
-            while(bookDisplayList.Count < 3)
+            if (bookList.Count() < 3)
             {
-                Random rnd = new Random();
-                int bookIndex = rnd.Next(bookList.Count);
-                if (!bookDisplayList.Contains(bookList.ElementAt(bookIndex)))
+                foreach (Book book in bookList)
                 {
-                    bookDisplayList.Add(bookList.ElementAt(bookIndex));
+                    bookDisplayList.Add(book);
+                }
+            }else
+            {
+                while (bookDisplayList.Count < 3)
+                {
+                    Random rnd = new Random();
+                    int bookIndex = rnd.Next(bookList.Count);
+                    if (!bookDisplayList.Contains(bookList.ElementAt(bookIndex)))
+                    {
+                        bookDisplayList.Add(bookList.ElementAt(bookIndex));
+                    }
                 }
             }
+
             ViewBag.bookDisplayList = bookDisplayList;
             return View();
         }
