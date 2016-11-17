@@ -3,7 +3,14 @@
     ViewBag.Title = "CRUD";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script>
 
+    if(JSON.parse(localStorage.getItem('profile')).roles == "admin" ){
+
+    } else {
+        window.location = "../Home/Login";
+    }
+</script>
 <h2>Create, Update and Delete Books</h2>
 
 <button onclick= "window.location='Create'">Create New Book</button>

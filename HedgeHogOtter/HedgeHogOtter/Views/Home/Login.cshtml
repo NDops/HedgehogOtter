@@ -3,6 +3,34 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://cdn.auth0.com/js/lock/10.4/lock.min.js"></script>
+<script>
+    // Initiating our Auth0Lock
+    var lock = new Auth0Lock(
+      'k61wcYRqJjCDCrXEdvy0nwADJrEjbffZ',
+      'hedgehogotter.auth0.com',{
+          options: {
+              auth: {
+                  redirect: false
+              }
+          }
+      }
 
-<h2>Login</h2>
+    );
 
+    // Listening for the authenticated event
+    lock.on("authenticated", function (authResult) {
+        // Use the token in authResult to getProfile() and save it to localStorage
+        lock.getProfile(authResult.idToken, function (error, profile) {
+            if (error) {
+                // Handle error
+                return;
+            }
+            localStorage.setItem('idToken', authResult.idToken);
+            localStorage.setItem('profile', JSON.stringify(profile));
+            window.location = "../Book/Admin";
+        });
+    });
+</script>
+<br />
+<button onclick="lock.show()">Login</button>
