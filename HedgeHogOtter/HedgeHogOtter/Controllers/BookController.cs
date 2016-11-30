@@ -40,7 +40,7 @@ namespace HedgeHogOtter.Controllers
                 {
                      checkedBox = " type ='checkbox' />";
                 }
-                table += "<tr style='border: 1px solid black;'> <td style='border: 1px solid black; '><input name = 'flaggedbox' onclick='ungraySave()' datac = 'equals" + bookList.ElementAt(i).FeatureFlag + "' id = '" + bookList.ElementAt(i).Title.Replace("'", @" ") + @"'"+checkedBox+ " <td style='border: 1px solid black; '><a href = 'Edit/" + bookList.ElementAt(i).Id + "'>" + bookList.ElementAt(i).Title + "</a></td><td style='border: 1px solid black; '>" + bookList.ElementAt(i).Author + "</td> <td style='border: 1px solid black;'> " + bookList.ElementAt(i).Quantity + "</td> </td ><td style='border: 1px solid black; '><button type = 'button' onclick = 'verify(0," + bookList.ElementAt(i).Id + ")' > Delete </button></td> </tr> ";
+                table += "<tr style='border: 1px solid black;'> <td style='border: 1px solid black; '><input name = 'flaggedbox'  datac = 'equals" + bookList.ElementAt(i).FeatureFlag + "' value = '" + bookList.ElementAt(i).Id + @"'"+checkedBox+ " <td style='border: 1px solid black; '><a href = 'Edit/" + bookList.ElementAt(i).Id + "'>" + bookList.ElementAt(i).Title + "</a></td><td style='border: 1px solid black; '>" + bookList.ElementAt(i).Author + "</td> <td style='border: 1px solid black;'> " + bookList.ElementAt(i).Quantity + "</td> </td ><td style='border: 1px solid black; '><button type = 'button' onclick = 'verify(0," + bookList.ElementAt(i).Id + ")' > Delete </button></td> </tr> ";
             }
             ViewBag.table = table;
             
@@ -51,8 +51,35 @@ namespace HedgeHogOtter.Controllers
         [ActionName("Admin")]
         public ActionResult AdminPost(string key)
         {
-            
 
+            var stringArr = Request["flaggedbox"].Split(',');
+            int[] intArr = new int [stringArr.Length];
+
+
+            for(int j = 0; j < stringArr.Length; j++)
+            {
+                intArr[j] = Convert.ToInt32(stringArr[j]);
+            }
+
+            var items = db.Books.ToList();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                Book b = items.ElementAt(i);
+
+                if (intArr.Contains(b.Id))
+                {
+                    b.FeatureFlag = 1;
+                    db.Entry(b).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    b.FeatureFlag = 0;
+                    db.Entry(b).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
 
             return RedirectToAction("Admin");
         }
