@@ -40,8 +40,8 @@
         <footer>
             <div id="logout" class="row col-md-12" style="display:none;">
                 <a onclick="new function () {
-                localStorage.removeItem('profile');
-                 window.location = 'index';
+                 localStorage.removeItem('profile');
+                 window.location = '/book/admin';
                 }">Log Out</a>
             </div>
 
@@ -60,7 +60,7 @@
         
 
         function checkLogin() {
-            if (JSON.parse(localStorage.getItem('profile')).roles == "admin") {
+            if (JSON.parse( localStorage.getItem('profile')).roles != null && JSON.parse( localStorage.getItem('profile')).roles == "admin") {
                 document.getElementById("logout").style.display = "block";
 
                 document.getElementById("navbar").innerHTML += '<li>@Html.ActionLink("Admin", "Admin", "Book")</li>';

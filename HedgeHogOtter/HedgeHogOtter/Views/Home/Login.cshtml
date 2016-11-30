@@ -20,7 +20,9 @@
 
     // Listening for the authenticated event
     lock.on("authenticated", function (authResult) {
-        // Use the token in authResult to getProfile() and save it to localStorage
+        // Use the token in authResult to getProfile() and save it to 
+
+
         lock.getProfile(authResult.idToken, function (error, profile) {
             if (error) {
                 // Handle error
