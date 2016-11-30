@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    
 
+<body onload="checkLogin()">
+  
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -22,11 +23,13 @@
 
             </div>
             <div class="navbar-collapse collapse">
-                <ul style="margin-left:100px;" class="nav navbar-nav">
+                <ul id ="navbar" style="margin-left:100px;" class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Books", "Index", "Book")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+
                 </ul>
             </div>
         </div>
@@ -35,6 +38,14 @@
         @RenderBody()
         <hr />
         <footer>
+            <div id="logout" class="row col-md-12" style="display:none;">
+                <a onclick="new function () {
+                localStorage.removeItem('profile');
+                 window.location = 'index';
+                }">Log Out</a>
+            </div>
+
+        
             <p>&copy; @DateTime.Now.Year - Hedgehog & Otter</p>
         </footer>
     </div>
@@ -42,5 +53,21 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    
+   
+
+    <script>
+        
+
+        function checkLogin() {
+            if (JSON.parse(localStorage.getItem('profile')).roles == "admin") {
+                document.getElementById("logout").style.display = "block";
+
+                document.getElementById("navbar").innerHTML += '<li>@Html.ActionLink("Admin", "Admin", "Book")</li>';
+            }
+        }
+       
+    </script>
 </body>
+
 </html>

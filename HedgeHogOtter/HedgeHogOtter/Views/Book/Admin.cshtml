@@ -5,10 +5,10 @@
 }
 <script>
 
-    if(JSON.parse(localStorage.getItem('profile')).roles == "admin" ){
+    if (JSON.parse(localStorage.getItem('profile')) != null && JSON.parse(localStorage.getItem('profile')).roles == "admin" ) {
 
     } else {
-        window.location = "../Home/Login";
+        window.location = "../Home/index";
     }
 </script>
 <h2>Create, Update and Delete Books</h2>
