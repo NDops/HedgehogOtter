@@ -15,7 +15,7 @@ namespace HedgeHogOtter.Migrations
 
         protected override void Seed(HedgeHogOtter.Models.HedgeHogOtterContext context)
         {
-            //Seeded data
+            
             context.Books.AddOrUpdate(
                 b => b.Title,
                 new Book { Title = "The Fellowship of the Ring", Author = "J.R.R. Tolkien", Description = "The first book of the Lord of the Rings trilogy.", Price = 14.99, FeatureFlag = 1, Quantity = 1, ISBN = "9780007129706" },
