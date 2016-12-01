@@ -6,6 +6,10 @@
 }
 
 <h2>@Html.DisplayFor(model => model.Title)</h2>
+@{
+    string modelISBN = Html.DisplayFor(model => model.ISBN) + "";
+    string source = "http://covers.openlibrary.org/b/isbn/" + modelISBN + "-M.jpg";
+}
 <hr />
 
 <div class="row">
@@ -22,7 +26,7 @@
         <b>Subject:</b> @Html.DisplayFor(model => model.Subject)<br /><br />
     </div>
     <div class="col-sm-6">
-        <img class="card-img-top" src="http://www.pressedfortimelincoln.co.uk/wp-content/uploads/2013/05/placeholder1-1024x768.png" width=318 height=180 alt="Card image cap">
+        <img class="card-img-top" src="@Url.Content(source)" alt="Card image cap">
 
     </div>
 </div>

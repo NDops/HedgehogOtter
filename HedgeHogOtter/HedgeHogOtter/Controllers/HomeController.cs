@@ -16,7 +16,7 @@ namespace HedgeHogOtter.Controllers
 
         public ActionResult Index()
         {
-            
+
             var bookList = db.Books.Select(b => b).Where(b => b.FeatureFlag == 1).ToList();
             var bookDisplayList = new List<Book>();
             if (bookList.Count() < 3)
@@ -25,7 +25,8 @@ namespace HedgeHogOtter.Controllers
                 {
                     bookDisplayList.Add(book);
                 }
-            }else
+            }
+            else
             {
                 while (bookDisplayList.Count < 3)
                 {
@@ -55,7 +56,7 @@ namespace HedgeHogOtter.Controllers
 
             return View();
 
-            
+
         }
 
         public ActionResult Login()
