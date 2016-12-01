@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Xml.Linq;
 
 namespace HedgeHogOtter.Controllers
 {
@@ -138,8 +139,42 @@ namespace HedgeHogOtter.Controllers
             return RedirectToAction("Index");
         }
 
-                
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        private void AddBookOnline(Book book, string requestType)
+        {
+            // This builds an xml file for a single book to be added/updated/deleted from AbeBooks
+            XElement request =
+                new XElement("inventoryUpdateRequest",
+                    new XAttribute("version", "1.0"),
+                    new XElement("action",
+                        new XAttribute("name","bookupdate"),
+                        new XElement("username", "kavenype@uwec.edu"),
+                        new XElement("password", "EE1939aa")
+                    ),
+                    new XElement("AbebookList",
+                        new XElement("Abebook",
+                            new XElement("transactionType", requestType),
+                            new XElement("vendorBookID", book.Id),
+                            new XElement("author", book.Author),
+                            new XElement("title", book.Title),
+                            new XElement("publisher", book.Publisher),
+                            new XElement("subject", book.Subject),
+                            new XElement("price",
+                                new XAttribute("currency", "USD"),
+                                book.Price),
+                            new XElement("description", book.Description),
+                            new XElement("bookCondition", book.BookCondition),
+                            new XElement("publishPlace", book.PublisherPlace),
+                            new XElement("publishYear", book.PublishYear),
+                            new XElement("quantity",
+                                new XAttribute("amount", book.Quantity))
+                        )
+                    )
+                );
+            request.Save(@"Inventory.xml");
+        }
 
         // POST: Book/Delete/5
         [HttpPost]
