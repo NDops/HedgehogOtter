@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Xml.Linq;
+using System.Net;
+using System.IO;
+using System.Windows.Forms;
 
 namespace HedgeHogOtter.Controllers
 {
@@ -114,6 +117,8 @@ namespace HedgeHogOtter.Controllers
         public ActionResult Details(int id)
         {
             var b = db.Books.Find(id);
+            // Test Book API
+            //AddBookOnline(b, "add");
             return View(b);
         }
 
@@ -138,12 +143,69 @@ namespace HedgeHogOtter.Controllers
             return RedirectToAction("Index");
         }
 
-                
+        private void AddBookOnline(Book book, string requestType)
+        {
+            // This builds an xml file for a single book to be added/updated/deleted from AbeBooks
+            XElement request =
+                new XElement("inventoryUpdateRequest",
+                    new XAttribute("version", "1.0"),
+                    new XElement("action",
+                        new XAttribute("name","bookupdate"),
+                        new XElement("username", "kavenype@uwec.edu"),
+                        new XElement("password", "EE1939aa")
+                    ),
+                    new XElement("AbebookList",
+                        new XElement("Abebook",
+                            new XElement("transactionType", requestType),
+                            new XElement("vendorBookID", book.Id),
+                            new XElement("author", book.Author),
+                            new XElement("title", book.Title),
+                            new XElement("publisher", book.Publisher),
+                            new XElement("subject", book.Subject),
+                            new XElement("price",
+                                new XAttribute("currency", "USD"),
+                                book.Price),
+                            new XElement("description", book.Description),
+                            new XElement("bookCondition", book.BookCondition),
+                            new XElement("isbn", book.ISBN),
+                            new XElement("publishPlace", book.PublisherPlace),
+                            new XElement("publishYear", book.PublishYear),
+                            new XElement("quantity",
+                                new XAttribute("amount", book.Quantity))
+                        )
+                    )
+                );
 
+            string url = "https://inventoryupdate.abebooks.com:1002";
+            //MessageBox.Show(request.ToString());
+            //postXMLData(url, request.ToString());
+        }
+
+        public string postXMLData(string destinationUrl, string requestXml)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(destinationUrl);
+            byte[] bytes;
+            bytes = System.Text.Encoding.ASCII.GetBytes(requestXml);
+            request.ContentType = "text/xml; encoding='utf-8'";
+            request.ContentLength = bytes.Length;
+            request.Method = "POST";
+            Stream requestStream = request.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
+            HttpWebResponse response;
+            response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream responseStream = response.GetResponseStream();
+                string responseStr = new StreamReader(responseStream).ReadToEnd();
+                return responseStr;
+            }
+            return null;
+        }
 
         // POST: Book/Delete/5
         [HttpPost]
-        public ActionResult DeleteBook(int id, FormCollection collection)
+        public ActionResult DeleteBook(int id, System.Web.Mvc.FormCollection collection)
         {
             try
             {

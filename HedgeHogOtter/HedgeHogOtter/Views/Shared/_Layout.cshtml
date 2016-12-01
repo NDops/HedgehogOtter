@@ -62,6 +62,7 @@
         function checkLogin() {
             if (JSON.parse( localStorage.getItem('profile')).roles != null && JSON.parse( localStorage.getItem('profile')).roles == "admin") {
                 document.getElementById("logout").style.display = "block";
+                document.getElementById("login").style.display = "none";
 
                 document.getElementById("navbar").innerHTML += '<li>@Html.ActionLink("Admin", "Admin", "Book")</li>';
             }
