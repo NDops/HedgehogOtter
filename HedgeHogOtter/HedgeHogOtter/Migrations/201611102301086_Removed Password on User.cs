@@ -5,6 +5,7 @@ namespace HedgeHogOtter.Migrations
     
     public partial class RemovedPasswordonUser : DbMigration
     {
+
         public override void Up()
         {
             DropColumn("dbo.Users", "Password");

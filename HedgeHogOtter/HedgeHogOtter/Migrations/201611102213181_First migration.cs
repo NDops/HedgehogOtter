@@ -5,6 +5,7 @@ namespace HedgeHogOtter.Migrations
     
     public partial class Firstmigration : DbMigration
     {
+        
         public override void Up()
         {
             CreateTable(

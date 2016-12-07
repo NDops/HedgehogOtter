@@ -4,7 +4,9 @@ namespace HedgeHogOtter.Migrations
     using System.Data.Entity.Migrations;
     
     public partial class CertainBookValuesRequired : DbMigration
+
     {
+
         public override void Up()
         {
             AlterColumn("dbo.Books", "Title", c => c.String(nullable: false));

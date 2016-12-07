@@ -92,7 +92,7 @@ namespace HedgeHogOtter.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("index");
+                return RedirectToAction("admin");
             }else{
                 return View(db.Books.Find(id));
             }
@@ -110,7 +110,7 @@ namespace HedgeHogOtter.Controllers
             db.Entry(b).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("admin");
         }
 
         // GET: Book/Details/5
@@ -140,7 +140,7 @@ namespace HedgeHogOtter.Controllers
             db.Books.Add(b);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("admin");
         }
 
         private void AddBookOnline(Book book, string requestType)

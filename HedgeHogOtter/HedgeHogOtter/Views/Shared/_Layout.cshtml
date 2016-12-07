@@ -38,15 +38,19 @@
         @RenderBody()
         <hr />
         <footer>
+            
+
+        
+            <p>&copy; @DateTime.Now.Year - Hedgehog & Otter</p>
+            <div id="login" class="row col-md-12">
+                <img src="/Content/images/keyicon.png" height="15"onclick="lock.show()"/>
+            </div>
             <div id="logout" class="row col-md-12" style="display:none;">
-                <a onclick="new function () {
+                <a style = "cursor: pointer;"  onclick="new function () {
                  localStorage.removeItem('profile');
                  window.location = '/book/admin';
                 }">Log Out</a>
             </div>
-
-        
-            <p>&copy; @DateTime.Now.Year - Hedgehog & Otter</p>
         </footer>
     </div>
 
@@ -57,7 +61,37 @@
    
 
     <script>
-        
+        var options = {
+
+            logo: "../Content/images/Auth0Logo.png",
+            primaryColor: "#ec4889",
+
+            redirect: false,
+            rememberLastLogin: false,
+
+
+
+        };
+
+        // Initiating our Auth0Lock
+        var lock = new Auth0Lock(
+          'k61wcYRqJjCDCrXEdvy0nwADJrEjbffZ',
+          'hedgehogotter.auth0.com', options
+        );
+
+        // Listening for the authenticated event
+        lock.on("authenticated", function (authResult) {
+            // Use the token in authResult to getProfile() and save it to localStorage
+            lock.getProfile(authResult.idToken, function (error, profile) {
+                if (error) {
+                    // Handle error
+                    return;
+                }
+                localStorage.setItem('idToken', authResult.idToken);
+                localStorage.setItem('profile', JSON.stringify(profile));
+                window.location = "../Book/Admin";
+            });
+        });
 
         function checkLogin() {
             if (JSON.parse( localStorage.getItem('profile')).roles != null && JSON.parse( localStorage.getItem('profile')).roles == "admin") {

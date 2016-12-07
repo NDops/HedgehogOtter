@@ -2,39 +2,7 @@
     ViewBag.Title = "Hedgehog Otter Books";
 }
 <script src="https://cdn.auth0.com/js/lock/10.4/lock.min.js"></script>
-<script>
-    var options = {
-     
-            logo: "../Content/images/Auth0Logo.png",
-            primaryColor: "#ec4889" ,      
- 
-            redirect: false,
-            rememberLastLogin: false,
-            
 
-  
-        };
-
-    // Initiating our Auth0Lock
-    var lock = new Auth0Lock(
-      'k61wcYRqJjCDCrXEdvy0nwADJrEjbffZ',
-      'hedgehogotter.auth0.com', options
-    );
-
-    // Listening for the authenticated event
-    lock.on("authenticated", function (authResult) {
-        // Use the token in authResult to getProfile() and save it to localStorage
-        lock.getProfile(authResult.idToken, function (error, profile) {
-            if (error) {
-                // Handle error
-                return;
-            }
-            localStorage.setItem('idToken', authResult.idToken);
-            localStorage.setItem('profile', JSON.stringify(profile));
-            window.location = "../Book/Admin";
-        });
-    });
-</script>
 <br />
 
 
@@ -69,7 +37,4 @@
             <p>@Html.ActionLink("See This Book", "Details", "Book", new { id = ViewBag.bookDisplayList[2].Id }, new { @class = "btn btn-default" })</p>
         }
     </div>
-</div>
-<div id ="login" class="row col-md-12">
-    <a  onclick="lock.show()">Login</a>
 </div>

@@ -8,6 +8,7 @@ namespace HedgeHogOtter.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<HedgeHogOtter.Models.HedgeHogOtterContext>
     {
+        
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
