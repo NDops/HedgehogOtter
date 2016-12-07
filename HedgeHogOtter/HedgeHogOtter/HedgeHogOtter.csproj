@@ -193,6 +193,10 @@
     <Compile Include="Migrations\201611102301086_Removed Password on User.Designer.cs">
       <DependentUpon>201611102301086_Removed Password on User.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612072220252_Certain Book Values Required.cs" />
+    <Compile Include="Migrations\201612072220252_Certain Book Values Required.Designer.cs">
+      <DependentUpon>201612072220252_Certain Book Values Required.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\HedgeHogOtterContext.cs" />
@@ -271,6 +275,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611102301086_Removed Password on User.resx">
       <DependentUpon>201611102301086_Removed Password on User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612072220252_Certain Book Values Required.resx">
+      <DependentUpon>201612072220252_Certain Book Values Required.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
