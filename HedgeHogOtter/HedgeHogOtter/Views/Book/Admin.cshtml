@@ -46,6 +46,7 @@
         <p><b>Deleting this is permanent,</b></p>
         <br> are you sure you want to do this?<br /><br />
         <form action="DeleteBook" method="post">
+             <input type="hidden" id="hiddenPost" />
              <button class="btn btn-default" id="deleter" name="id" value="" type="submit">Yes</button>
              <button type="button" class="btn btn-default" onclick="verify(1)">Cancel</button>
         </form>
@@ -69,7 +70,7 @@
     function verify(x,id) {
         if(x == 0){
             document.getElementById("verifier").style.visibility = "visible";
-            document.getElementById("deleter").value = id;
+            document.getElementById("hiddenPost").value = id;
         } else {
             document.getElementById("verifier").style.visibility = "hidden";
         }
