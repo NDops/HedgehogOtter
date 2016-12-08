@@ -12,6 +12,9 @@
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_DbContextTypeFullName>HedgeHogOtter.Models.HedgeHogOtterEntities</WebStackScaffolding_DbContextTypeFullName>
   </PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>C:\Users\Daniel Scarr\Source\Repos\hedgehogotter\HedgeHogOtter\HedgeHogOtter\Content\assets\;C:\Users\Daniel Scarr\Source\Repos\hedgehogotter\HedgeHogOtter\HedgeHogOtter\Content\images\</ReferencePath>
+  </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
