@@ -8,6 +8,8 @@ using System.Xml.Linq;
 using System.Net;
 using System.IO;
 using System.Windows.Forms;
+using System.Text;
+using System.Web;
 
 namespace HedgeHogOtter.Controllers
 {
@@ -117,8 +119,7 @@ namespace HedgeHogOtter.Controllers
         public ActionResult Details(int id)
         {
             var b = db.Books.Find(id);
-            // Test Book API
-            //AddBookOnline(b, "add");
+
             return View(b);
         }
 
@@ -143,8 +144,10 @@ namespace HedgeHogOtter.Controllers
             return RedirectToAction("admin");
         }
 
-        private void AddBookOnline(Book book, string requestType)
+        [HttpGet]
+        public void AddBookOnline(int id, string requestType)
         {
+            Book book = db.Books.Find(id);
             // This builds an xml file for a single book to be added/updated/deleted from AbeBooks
             XElement request =
                 new XElement("inventoryUpdateRequest",
@@ -178,29 +181,27 @@ namespace HedgeHogOtter.Controllers
 
             string url = "https://inventoryupdate.abebooks.com:1002";
             //MessageBox.Show(request.ToString());
-            //postXMLData(url, request.ToString());
+            postXMLData(url, request.ToString());
         }
 
-        public string postXMLData(string destinationUrl, string requestXml)
+        [HttpPost]
+        [ActionName("AddBookOnline")]
+        public void postXMLData(string destinationUrl, string requestXml)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(destinationUrl);
-            byte[] bytes;
-            bytes = System.Text.Encoding.ASCII.GetBytes(requestXml);
-            request.ContentType = "text/xml; encoding='utf-8'";
-            request.ContentLength = bytes.Length;
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(destinationUrl);
             request.Method = "POST";
-            Stream requestStream = request.GetRequestStream();
-            requestStream.Write(bytes, 0, bytes.Length);
-            requestStream.Close();
-            HttpWebResponse response;
-            response = (HttpWebResponse)request.GetResponse();
-            if (response.StatusCode == HttpStatusCode.OK)
+            request.AllowAutoRedirect = false;
+            request.Accept = "*/*";
+            request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+            request.Timeout = -1;
+
+            using (StreamWriter stOut = new StreamWriter(request.GetRequestStream(), Encoding.UTF8))
             {
-                Stream responseStream = response.GetResponseStream();
-                string responseStr = new StreamReader(responseStream).ReadToEnd();
-                return responseStr;
+                stOut.Write(requestXml);
+                stOut.Flush();
+                stOut.Close();
+                request.Abort();
             }
-            return null;
         }
 
         // POST: Book/Delete/5
