@@ -45,7 +45,10 @@ namespace HedgeHogOtter.Controllers
                 {
                      checkedBox = " type ='checkbox' />";
                 }
-                table += "<tr style='border: 1px solid black;'> <td style='border: 1px solid black; '><input name = 'flaggedbox'  datac = 'equals" + bookList.ElementAt(i).FeatureFlag + "' value = '" + bookList.ElementAt(i).Id + @"'"+checkedBox+ " <td style='border: 1px solid black; '><a href = 'Edit/" + bookList.ElementAt(i).Id + "'>" + bookList.ElementAt(i).Title + "</a></td><td style='border: 1px solid black; '>" + bookList.ElementAt(i).Author + "</td> <td style='border: 1px solid black;'> " + bookList.ElementAt(i).Quantity + "</td> </td ><td style='border: 1px solid black; '><button type = 'button' onclick = 'verify(0," + bookList.ElementAt(i).Id + ")' > Delete </button></td> </tr> ";
+                table += "<tr style='border: 1px solid black;'>";
+                table += "<td style='border: 1px solid black; '><input name = 'flaggedbox'  datac = '" + bookList.ElementAt(i).FeatureFlag + "' value = '" + bookList.ElementAt(i).Id + @"'" + checkedBox + " <td style='border: 1px solid black; '><a href = 'Edit/" + bookList.ElementAt(i).Id + "'>" + bookList.ElementAt(i).Title + "</a></td>";
+                table += "<td style='border: 1px solid black; '>" + bookList.ElementAt(i).Author + "</td> <td style='border: 1px solid black;'> " + bookList.ElementAt(i).Quantity + "</td>";
+                table += "<td style='border: 1px solid black; '><button type = 'button' onclick = 'verify(0," + bookList.ElementAt(i).Id + ")' > Delete </button></td> </tr> ";
             }
             ViewBag.table = table;
             

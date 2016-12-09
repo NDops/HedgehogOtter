@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/"> <img id="logo" height="65" src="~/Content/images/logo.png" /></a>
+                <a href="/"> <img id="logo" height="65" src="~/Content/logo.png" /></a>
 
             </div>
             <div class="navbar-collapse collapse">
@@ -41,16 +41,22 @@
             
 
         
-            <p>&copy; @DateTime.Now.Year - Hedgehog & Otter</p>
-            <div id="login" class="row col-md-12">
-                <img src="/Content/images/keyicon.png" height="15"onclick="lock.show()"/>
-            </div>
-            <div id="logout" class="row col-md-12" style="display:none;">
-                <a style = "cursor: pointer;"  onclick="new function () {
+            <p>
+
+                <div id="login" class="row col-md-12">
+                    &copy; @DateTime.Now.Year - Hedgehog & Otter
+                    <img src="~/Content/keyicon.png" height="15" onclick="lock.show()" />
+                </div>
+
+                <div id="logout" class="row col-md-12" style="display:none;">
+                    &copy; @DateTime.Now.Year - Hedgehog & Otter
+
+                    <a style="cursor: pointer;" onclick="new function () {
                  localStorage.removeItem('profile');
                  window.location = '/book/admin';
                 }">Log Out</a>
-            </div>
+                </div>
+            </p>
         </footer>
     </div>
 
@@ -63,7 +69,7 @@
     <script>
         var options = {
 
-            logo: "../Content/images/Auth0Logo.png",
+            logo: "~/Content/Auth0Logo.png",
             primaryColor: "#ec4889",
 
             redirect: false,

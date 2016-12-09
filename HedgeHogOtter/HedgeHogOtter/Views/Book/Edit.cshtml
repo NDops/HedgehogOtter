@@ -4,7 +4,14 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script>
 
+    if (JSON.parse(localStorage.getItem('profile')) != null && JSON.parse(localStorage.getItem('profile')).roles == "admin") {
+
+    } else {
+        window.location = "index";
+    }
+</script>
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
