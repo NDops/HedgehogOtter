@@ -19,16 +19,26 @@ namespace HedgeHogOtter.Controllers
         private HedgeHogOtterContext db = new HedgeHogOtterContext();
         static List<Book> globalBookList = new List<Book>();
 
+
         public ActionResult Index()
         {
-            globalBookList = db.Books.ToList();
+            var searchText = Request.Form["searchBar"];
+            if (searchText == null || searchText.Equals(""))
+            {
+                globalBookList = db.Books.ToList();
+            }
+            else
+            {
+                globalBookList = db.Books.Select(b => b).Where(b => b.Title.ToLower().Contains(searchText.ToLower()) || b.Author.ToLower().Contains(searchText.ToLower())).ToList();
+            }
+
             return View(globalBookList);
         }
 
         // GET: Book
         public ActionResult Admin()
         {
-          
+
             var bookList = db.Books.ToList();
             var bookDisplayList = new List<Book>();
             string checkedBox;
@@ -39,11 +49,11 @@ namespace HedgeHogOtter.Controllers
             {
                 if (bookList.ElementAt(i).FeatureFlag == 1)  //featured flag 
                 {
-                     checkedBox = " type ='checkbox' checked />";
+                    checkedBox = " type ='checkbox' checked />";
                 }
                 else
                 {
-                     checkedBox = " type ='checkbox' />";
+                    checkedBox = " type ='checkbox' />";
                 }
                 table += "<tr style='border: 1px solid black;'>";
                 table += "<td style='border: 1px solid black; '><input name = 'flaggedbox'  datac = '" + bookList.ElementAt(i).FeatureFlag + "' value = '" + bookList.ElementAt(i).Id + @"'" + checkedBox + " <td style='border: 1px solid black; '><a href = 'Edit/" + bookList.ElementAt(i).Id + "'>" + bookList.ElementAt(i).Title + "</a></td>";
@@ -51,8 +61,8 @@ namespace HedgeHogOtter.Controllers
                 table += "<td style='border: 1px solid black; '><button type = 'button' onclick = 'verify(0," + bookList.ElementAt(i).Id + ")' > Delete </button></td> </tr> ";
             }
             ViewBag.table = table;
-            
-    
+
+
             return View();
         }
         [HttpPost]
@@ -61,10 +71,10 @@ namespace HedgeHogOtter.Controllers
         {
 
             var stringArr = Request["flaggedbox"].Split(',');
-            int[] intArr = new int [stringArr.Length];
+            int[] intArr = new int[stringArr.Length];
 
 
-            for(int j = 0; j < stringArr.Length; j++)
+            for (int j = 0; j < stringArr.Length; j++)
             {
                 intArr[j] = Convert.ToInt32(stringArr[j]);
             }
@@ -98,15 +108,17 @@ namespace HedgeHogOtter.Controllers
             if (id == null)
             {
                 return RedirectToAction("admin");
-            }else{
+            }
+            else
+            {
                 return View(db.Books.Find(id));
             }
-            
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Title,Author,BookCondition,Description,Subject,Quantity,Price,ISBN,Publisher,PublisherPlace,PublishYear")] Book b)
+        public ActionResult Edit([Bind(Include = "Id,Title,Author,BookCondition,Description,Subject,Quantity,Price,ISBN,Publisher,PublisherPlace,PublishYear")] Book b)
         {
             if (!ModelState.IsValid)
             {
@@ -156,7 +168,7 @@ namespace HedgeHogOtter.Controllers
                 new XElement("inventoryUpdateRequest",
                     new XAttribute("version", "1.0"),
                     new XElement("action",
-                        new XAttribute("name","bookupdate"),
+                        new XAttribute("name", "bookupdate"),
                         new XElement("username", "kavenype@uwec.edu"),
                         new XElement("password", "EE1939aa")
                     ),

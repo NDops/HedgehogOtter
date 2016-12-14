@@ -10,7 +10,7 @@
 </head>
 
 <body onload="checkLogin()">
-  
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -23,12 +23,16 @@
 
             </div>
             <div class="navbar-collapse collapse">
-                <ul id ="navbar" style="margin-left:100px;" class="nav navbar-nav">
+                <ul id="navbar" style="margin-left:100px;" class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Books", "Index", "Book")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
+                    <li>
+                        <form method="POST" action="../Book/Index">
+                            <input type="text" placeholder="Search Books" name="searchBar" value="" />
+                        </form>
+                    </li>
 
                 </ul>
             </div>
@@ -38,9 +42,9 @@
         @RenderBody()
         <hr />
         <footer>
-            
 
-        
+
+
             <p>
 
                 <div id="login" class="row col-md-12">
@@ -63,8 +67,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    
-   
+
+
 
     <script>
         var options = {
@@ -107,7 +111,7 @@
                 document.getElementById("navbar").innerHTML += '<li>@Html.ActionLink("Admin", "Admin", "Book")</li>';
             }
         }
-       
+
     </script>
 </body>
 
