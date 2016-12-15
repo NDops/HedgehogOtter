@@ -22,9 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+img{
+    display:inline;
+
+}
 #logo{
     position:fixed;
     margin-top:-15px;
     margin-right:50px;
     height:100px;
+    display:initial;
 }
