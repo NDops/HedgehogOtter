@@ -12,7 +12,7 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        string url = "https://www.abebooks.com/servlet/ListingPreview?vi=51369542&vli=" + item.Id;
+        string url = "https://www.abebooks.com/servlet/BookDetailsPL?bi=21215044508&searchurl=sortby%3D0%" + item.Id + "vci%3D51369542";
         string source = "http://covers.openlibrary.org/b/isbn/" + item.ISBN + "-M.jpg";
         if ((i % 3) == 0)
         {

@@ -23,17 +23,18 @@
 
             </div>
             <div class="navbar-collapse collapse">
-                <ul id="navbar" style="margin-left:100px;" class="nav navbar-nav">
+                <ul id="navbar" style="margin-left:100px; margin-right:1em; float:left;" class="nav navbar-nav navbar-left">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Books", "Index", "Book")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                <ul id="search_bar" class="nav navbar-nav navbar-right"  style="float:right; margin-right:3em; margin-top:1em;">
                     <li>
                         <form method="POST" action="../Book/Index">
-                            <input type="text" placeholder="Search Books" name="searchBar" value="" />
+                            <input type="text" placeholder="Search Books" name="searchBar" value="" style="vertical-align: middle;" />
                         </form>
                     </li>
-
                 </ul>
             </div>
         </div>
