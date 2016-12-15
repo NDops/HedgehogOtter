@@ -126,7 +126,7 @@ namespace HedgeHogOtter.Controllers
             }
             db.Entry(b).State = EntityState.Modified;
             db.SaveChanges();
-
+            postAbeBookData(b.Id, "UPDATE");
             return RedirectToAction("admin");
         }
 
@@ -155,68 +155,66 @@ namespace HedgeHogOtter.Controllers
             }
             db.Books.Add(b);
             db.SaveChanges();
+            postAbeBookData(b.Id, "add");
 
             return RedirectToAction("admin");
         }
 
-        [HttpGet]
-        public void AddBookOnline(int id, string requestType)
-        {
-            Book book = db.Books.Find(id);
-            // This builds an xml file for a single book to be added/updated/deleted from AbeBooks
-            XElement request =
-                new XElement("inventoryUpdateRequest",
-                    new XAttribute("version", "1.0"),
-                    new XElement("action",
-                        new XAttribute("name", "bookupdate"),
-                        new XElement("username", "kavenype@uwec.edu"),
-                        new XElement("password", "EE1939aa")
-                    ),
-                    new XElement("AbebookList",
-                        new XElement("Abebook",
-                            new XElement("transactionType", requestType),
-                            new XElement("vendorBookID", book.Id),
-                            new XElement("author", book.Author),
-                            new XElement("title", book.Title),
-                            new XElement("publisher", book.Publisher),
-                            new XElement("subject", book.Subject),
-                            new XElement("price",
-                                new XAttribute("currency", "USD"),
-                                book.Price),
-                            new XElement("description", book.Description),
-                            new XElement("bookCondition", book.BookCondition),
-                            new XElement("isbn", book.ISBN),
-                            new XElement("publishPlace", book.PublisherPlace),
-                            new XElement("publishYear", book.PublishYear),
-                            new XElement("quantity",
-                                new XAttribute("amount", book.Quantity))
-                        )
-                    )
-                );
-
-            string url = "https://inventoryupdate.abebooks.com:1002";
-            //MessageBox.Show(request.ToString());
-            postXMLData(url, request.ToString());
-        }
-
         [HttpPost]
-        [ActionName("AddBookOnline")]
-        public void postXMLData(string destinationUrl, string requestXml)
+        [ActionName("AddBooks")]
+        public void postAbeBookData(int id, string requestType)
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(destinationUrl);
-            request.Method = "POST";
-            request.AllowAutoRedirect = false;
-            request.Accept = "*/*";
-            request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
-            request.Timeout = -1;
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(new Uri("https://inventoryupdate.abebooks.com:10027"));
+            req.Method = "POST";
+            req.ContentType = "application/xml";
+            req.Accept = "application/xml";
+            Book book = db.Books.Find(id);
+            XElement request =
+                 new XElement("inventoryUpdateRequest",
+                     new XAttribute("version", "1.0"),
+                     new XElement("action",
+                         new XAttribute("name", "bookupdate"),
+                         new XElement("username", "PhilipKaveny"),
+                         new XElement("password", "EE1939aa")
+                     ),
+                     new XElement("AbebookList",
+                         new XElement("Abebook",
+                             new XElement("transactionType", requestType),
+                             new XElement("vendorBookID", book.Id),
+                             new XElement("author", book.Author),
+                             new XElement("title", book.Title),
+                             new XElement("publisher", book.Publisher),
+                             new XElement("subject", book.Subject),
+                             new XElement("price",
+                                 new XAttribute("currency", "USD"),
+                                 book.Price),
+                             new XElement("description", book.Description),
+                             new XElement("bookCondition", book.BookCondition),
+                             new XElement("isbn", book.ISBN),
+                             new XElement("publishPlace", book.PublisherPlace),
+                             new XElement("publishYear", book.PublishYear),
+                             new XElement("quantity",
+                                 new XAttribute("amount", book.Quantity))
+                         )
+                     )
+                 );
 
-            using (StreamWriter stOut = new StreamWriter(request.GetRequestStream(), Encoding.UTF8))
+            byte[] bytes = Encoding.UTF8.GetBytes(request.ToString());
+
+            req.ContentLength = bytes.Length;
+
+            using (Stream putStream = req.GetRequestStream())
             {
-                stOut.Write(requestXml);
-                stOut.Flush();
-                stOut.Close();
-                request.Abort();
+                putStream.Write(bytes, 0, bytes.Length);
             }
+
+            // Log the response from Abebooks for testing 
+            using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
+            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            {
+                string r = reader.ReadToEnd();
+            }
+
         }
 
         // POST: Book/Delete/5
