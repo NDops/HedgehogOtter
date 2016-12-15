@@ -12,6 +12,7 @@
 <div class="row">
     @foreach (var item in Model)
     {
+        string url = "https://www.abebooks.com/servlet/ListingPreview?vi=51369542&vli=" + item.Id;
         string source = "http://covers.openlibrary.org/b/isbn/" + item.ISBN + "-M.jpg";
         if ((i % 3) == 0)
         {
@@ -25,7 +26,8 @@
                     <h4 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h4>
                     <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
                     @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
-                    <a href="#" class="btn btn-primary">Buy</a>
+                    
+                    <a href="@url" class="btn btn-primary">Buy</a>
                 </div>
             </div>
         </div>

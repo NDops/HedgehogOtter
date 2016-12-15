@@ -38,45 +38,25 @@ namespace HedgeHogOtter.Controllers
         // GET: Book
         public ActionResult Admin()
         {
-
             var bookList = db.Books.ToList();
-            var bookDisplayList = new List<Book>();
-            string checkedBox;
-            String table = "";
-
-
-            for (int i = 0; i < bookList.Count; i++)
-            {
-                if (bookList.ElementAt(i).FeatureFlag == 1)  //featured flag 
-                {
-                    checkedBox = " type ='checkbox' checked />";
-                }
-                else
-                {
-                    checkedBox = " type ='checkbox' />";
-                }
-                table += "<tr style='border: 1px solid black;'>";
-                table += "<td style='border: 1px solid black; '><input name = 'flaggedbox'  datac = '" + bookList.ElementAt(i).FeatureFlag + "' value = '" + bookList.ElementAt(i).Id + @"'" + checkedBox + " <td style='border: 1px solid black; '><a href = 'Edit/" + bookList.ElementAt(i).Id + "'>" + bookList.ElementAt(i).Title + "</a></td>";
-                table += "<td style='border: 1px solid black; '>" + bookList.ElementAt(i).Author + "</td> <td style='border: 1px solid black;'> " + bookList.ElementAt(i).Quantity + "</td>";
-                table += "<td style='border: 1px solid black; '><button type = 'button' onclick = 'verify(0," + bookList.ElementAt(i).Id + ")' > Delete </button></td> </tr> ";
-            }
-            ViewBag.table = table;
-
-
-            return View();
+            
+            return View(bookList);
         }
+
         [HttpPost]
         [ActionName("Admin")]
         public ActionResult AdminPost(string key)
         {
-
-            var stringArr = Request["flaggedbox"].Split(',');
+            var stringArr = Request["flagged"].Split(',');
             int[] intArr = new int[stringArr.Length];
-
-
+            
+            MessageBox.Show(Request["flagged"]);
             for (int j = 0; j < stringArr.Length; j++)
             {
-                intArr[j] = Convert.ToInt32(stringArr[j]);
+                if (stringArr[j] != "false")
+                    intArr[j] = Convert.ToInt32(stringArr[j]);
+                else
+                    intArr[j] = 0;
             }
 
             var items = db.Books.ToList();
@@ -113,7 +93,6 @@ namespace HedgeHogOtter.Controllers
             {
                 return View(db.Books.Find(id));
             }
-
         }
 
         [HttpPost]
@@ -126,7 +105,7 @@ namespace HedgeHogOtter.Controllers
             }
             db.Entry(b).State = EntityState.Modified;
             db.SaveChanges();
-            postAbeBookData(b.Id, "UPDATE");
+            postAbeBookData(b, "UPDATE");
             return RedirectToAction("admin");
         }
 
@@ -155,20 +134,20 @@ namespace HedgeHogOtter.Controllers
             }
             db.Books.Add(b);
             db.SaveChanges();
-            postAbeBookData(b.Id, "add");
+            postAbeBookData(b, "add");
 
             return RedirectToAction("admin");
         }
 
         [HttpPost]
         [ActionName("AddBooks")]
-        public void postAbeBookData(int id, string requestType)
+        public void postAbeBookData(Book book, string requestType)
         {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(new Uri("https://inventoryupdate.abebooks.com:10027"));
             req.Method = "POST";
             req.ContentType = "application/xml";
             req.Accept = "application/xml";
-            Book book = db.Books.Find(id);
+
             XElement request =
                  new XElement("inventoryUpdateRequest",
                      new XAttribute("version", "1.0"),
@@ -208,31 +187,26 @@ namespace HedgeHogOtter.Controllers
                 putStream.Write(bytes, 0, bytes.Length);
             }
 
+           
             // Log the response from Abebooks for testing 
             using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
             using (StreamReader reader = new StreamReader(response.GetResponseStream()))
             {
                 string r = reader.ReadToEnd();
+                //Uncomment This To Read Response From API!
+                //MessageBox.Show(r);
             }
-
+            
         }
 
         // POST: Book/Delete/5
-        [HttpPost]
-        public ActionResult DeleteBook(int id, System.Web.Mvc.FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-                int deleteID = int.Parse(Request.Form["id"]);
-                db.Books.Remove(db.Books.Find(deleteID));
-                db.SaveChanges();
-                return RedirectToAction("Admin");
-            }
-            catch
-            {
-                return View();
-            }
+            Book b = db.Books.Find(id);
+            postAbeBookData(b, "DELETE");
+            db.Books.Remove(b);
+            db.SaveChanges();
+            return RedirectToAction("Admin");
         }
     }
 }
