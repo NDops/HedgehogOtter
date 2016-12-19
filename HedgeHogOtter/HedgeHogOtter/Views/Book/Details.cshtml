@@ -12,6 +12,8 @@
 }
 <hr />
 
+@Html.ActionLink("Abebooks Listing URL", "get_abebooks_data", new { id =  Model.Id}, new { @class = "btn btn-primary btn-tiny"})
+
 <div class="row">
     <div class="col-sm-6">
         <b>Description:</b> @Html.DisplayFor(model => model.Description)<br />

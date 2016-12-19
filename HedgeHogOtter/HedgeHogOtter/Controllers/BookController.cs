@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Text;
 using System.Web;
+using System.Xml;
 
 namespace HedgeHogOtter.Controllers
 {
@@ -139,6 +140,23 @@ namespace HedgeHogOtter.Controllers
             return RedirectToAction("admin");
         }
 
+        [HttpPost]  
+        public void get_abebooks_data(int id)
+        {
+            Book b = db.Books.Find(id);
+            string url = "http://search2.abebooks.com/search?clientkey=320eb188-fb10-490a-9633-aa360b41df82&vendorid=51369542&isbn=" + b.ISBN;
+            XmlDocument xdoc = new XmlDocument();//xml doc used for xml parsing
+
+            xdoc.Load(url);
+
+            XmlNodeList xNodelst = xdoc.DocumentElement.SelectNodes("listingUrl");
+
+            foreach (XmlNode xNode in xNodelst)//traversing XML 
+            {
+                MessageBox.Show(xNode.Value);
+            }
+        }
+
         [HttpPost]
         [ActionName("AddBooks")]
         public void postAbeBookData(Book book, string requestType)
@@ -153,8 +171,8 @@ namespace HedgeHogOtter.Controllers
                      new XAttribute("version", "1.0"),
                      new XElement("action",
                          new XAttribute("name", "bookupdate"),
-                         new XElement("username", "PhilipKaveny"),
-                         new XElement("password", "EE1939aa")
+                         new XElement("username", Environment.GetEnvironmentVariable("client")),
+                         new XElement("password", Environment.GetEnvironmentVariable("password"))
                      ),
                      new XElement("AbebookList",
                          new XElement("Abebook",
