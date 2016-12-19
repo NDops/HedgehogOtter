@@ -27,6 +27,7 @@
             @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control" } })
+                <button type="button" class="btn-default" onclick="getInfo()">Search ISBN</button>
                 @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -114,3 +115,34 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+
+    function Get(yourUrl) {
+        var Httpreq = new XMLHttpRequest();
+        Httpreq.open("GET", yourUrl, false);
+        Httpreq.send(null);
+        return Httpreq.responseText;
+    }
+
+    function getInfo() {
+        var isbn = document.getElementById("ISBN").value;
+        var results = JSON.parse(Get("https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn));
+        if(results.totalItems){
+            var book = results.items[0];
+            document.getElementById("Title").value = book["volumeInfo"]["title"];
+            document.getElementById("Author").value = book["volumeInfo"]["authors"];
+            document.getElementById("Description").value = book["volumeInfo"]["description"];
+            document.getElementById("Publisher").value = book["volumeInfo"]["publisher"];
+            document.getElementById("Subject").value = book["volumeInfo"]["categories"];
+            var date = book["volumeInfo"]["publishedDate"];
+            var year = date.substring(0, 5);
+            var yearInt = parseInt(year);
+            document.getElementById("PublishYear").value = yearInt;
+        } else {
+            alert("No data was found for ISBN: " + isbn);
+        }
+
+    }
+
+</script>
