@@ -150,21 +150,21 @@ namespace HedgeHogOtter.Controllers
             return RedirectToAction("admin");
         }
 
-        [HttpPost]  
-        public void get_abebooks_data(int id)
+        // GET: Book/GetAbeBooks/2 
+        public ActionResult GetAbeBooks(int id)
         {
             Book b = db.Books.Find(id);
-            string url = "http://search2.abebooks.com/search?clientkey=320eb188-fb10-490a-9633-aa360b41df82&vendorid=51369542&isbn=" + b.ISBN;
+            string url = "http://search2.abebooks.com/search?clientkey=320eb188-fb10-490a-9633-aa360b41df82&vendorid=51369542&targetsite=abebooks.com&isbn=" + b.ISBN;
             XmlDocument xdoc = new XmlDocument();//xml doc used for xml parsing
 
+            string parsedUrl = "https://";
             xdoc.Load(url);
 
-            XmlNodeList xNodelst = xdoc.DocumentElement.SelectNodes("listingUrl");
-
-            foreach (XmlNode xNode in xNodelst)//traversing XML 
-            {
-                MessageBox.Show(xNode.Value);
-            }
+            parsedUrl += xdoc.SelectSingleNode("/searchResults/Book/listingUrl").InnerText;            
+                       
+            //string parsedUrl = xdoc.DocumentElement.SelectSingleNode("/searchResults/Book/listingUrl").InnerText;
+                            
+            return Redirect(parsedUrl);
         }
 
         [HttpPost]
