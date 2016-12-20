@@ -10,6 +10,7 @@
 
 @{ int i = 1; }
 <div class="row">
+    
     @foreach (var item in Model)
     {
         string url = "https://www.abebooks.com/servlet/BookDetailsPL?bi=21215044508&searchurl=sortby%3D0%" + item.Id + "vci%3D51369542";
@@ -18,20 +19,24 @@
         {
             @:<div class="row">
         }
+        <staticcontent>
+            <clientcache cachecontrolmode="UseMaxAge" cachecontrolmaxage="60.00:00:00" />
 
-        <div class="col-sm-4">
-            <div class="card col-sm-12">
-                <img class="card-img-top col-sm-8 col-sm-offset-1" src="@Url.Content(source)" alt="Card image cap">
-                <div class="card-block col-sm-12">
-                    <h4 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h4>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.Author)</p>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
-                    
-                    <a href="@url" class="btn btn-primary">Buy</a>
+
+            <div class="col-sm-4">
+                <div class="card col-sm-12">
+                    <img class="card-img-top col-sm-8 col-sm-offset-1" src="@Url.Content(source)" alt="Card image cap">
+
+                    <div class="card-block col-sm-12">
+                        <h4 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h4>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Author)</p>
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+
+                        <a href="@url" class="btn btn-primary">Buy</a>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </staticcontent>
         if ((i % 3) == 0)
         {
             @:</div><br /><br />

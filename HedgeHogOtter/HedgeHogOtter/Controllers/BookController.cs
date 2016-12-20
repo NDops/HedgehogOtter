@@ -11,12 +11,22 @@ using System.Windows.Forms;
 using System.Text;
 using System.Web;
 using System.Xml;
+using System.IdentityModel;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace HedgeHogOtter.Controllers
 {
     public class BookController : Controller
     {
+        public ActionResult FirstAjax(string id)
+        {
+            
+            var handler = new JwtSecurityTokenHandler();
 
+            var jsonToken = handler.ReadToken(id);
+            var temp = jsonToken.ToString();
+            return Json(temp, JsonRequestBehavior.AllowGet);
+        }
         private HedgeHogOtterContext db = new HedgeHogOtterContext();
         static List<Book> globalBookList = new List<Book>();
 
